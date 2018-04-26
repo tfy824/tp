@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: tp-upms-service
+#
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#    lease-renewal-interval-in-seconds: 5
+#    lease-expiration-duration-in-seconds: 20
+#  client:
+#    serviceUrl:
+#      defaultZone: http://tp:tp999@localhost:8761/eureka
+#    registry-fetch-interval-seconds: 10
+
+

@@ -13,15 +13,14 @@
 	<version>1.0-BETA</version>
 	<packaging>pom</packaging>
 
-	<name>pig-modules</name>
+	<name>tp-modules</name>
 	<url>http://maven.apache.org</url>
 
+	<modules>
+		<module>tp-upms-service</module>
+	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
-	<modules>
-
-	</modules>
 
 </project>
