@@ -3,14 +3,20 @@ import java.util.Map;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.github.pig.common.constant.CommonConstant;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.github.pig.common.util.Query;
+import com.tp.common.constant.OperateConstant;
 import ${package.Entity}.${entity};
-import ${package.Service}.${entity}Service;
+import ${package.Service}.I${entity}Service;
 import com.tp.common.controller.BaseController;
 import org.springframework.web.bind.annotation.RestController;
+import com.tp.common.exception.BizException;
+import org.springframework.web.bind.annotation.PathVariable;
+import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.tp.common.page.PageParam;
+import io.swagger.annotations.ApiParam;
 
 /**
  * <p>
@@ -25,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ${table.controllerName} extends BaseController {
     private final Logger logger = LoggerFactory.getLogger(${table.controllerName}.class);
 
-    @Autowired private ${entity}Service ${table.entityPath}Service;
+    @Autowired private I${entity}Service ${table.entityPath}Service;
 
     /**
     * 通过ID查询
@@ -34,8 +40,16 @@ public class ${table.controllerName} extends BaseController {
     * @return ${entity}
     */
     @GetMapping("/{id}")
-    public ${entity} get(@PathVariable Integer id) {
-        return ${table.entityPath}Service.selectById(id);
+    @ApiOperation(httpMethod = "GET", value = "通过ID查询${table.comment}")
+    public Map<String, Object> get(@PathVariable String id) {
+        try {
+             return  successMap(${table.entityPath}Service.selectById(id));
+        }catch (BizException e){
+             return failMap(e.getMessage());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+             return failMap(OperateConstant.OPERATION_FAIL);
+        }
     }
 
 
@@ -46,43 +60,69 @@ public class ${table.controllerName} extends BaseController {
     * @return 分页对象
     */
     @RequestMapping("/page")
-    public Page page(@RequestParam Map<String, Object> params) {
-        params.put(CommonConstant.DEL_FLAG, CommonConstant.STATUS_NORMAL);
-        return ${table.entityPath}Service.selectPage(new Query<>(params), new EntityWrapper<>());
+    @ApiOperation(httpMethod = "POST", value = "分页查询${table.comment}")
+    public Map<String, Object> page(@RequestParam Map<String, Object> params) {
+        try {
+             return  successMap("todo");
+        }catch (BizException e){
+            return failMap(e.getMessage());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return failMap(OperateConstant.QUERY_FAIL);
+        }
     }
 
     /**
      * 添加
      * @param  ${table.entityPath}  实体
-     * @return success/false
+     * @return
      */
     @PostMapping
-    public Boolean add(@RequestBody ${entity} ${table.entityPath}) {
-        return ${table.entityPath}Service.insert(${table.entityPath});
+    @ApiOperation(httpMethod = "POST", value = "添加${table.comment}")
+    public Map<String, Object> add(@RequestBody ${entity} ${table.entityPath}) {
+        try {
+             return  successMap(${table.entityPath}Service.insert(${table.entityPath}));
+        }catch (BizException e){
+             return failMap(e.getMessage());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return failMap(OperateConstant.OPERATION_FAIL);
+        }
     }
 
     /**
      * 删除
      * @param id ID
-     * @return success/false
+     * @return
      */
     @DeleteMapping("/{id}")
-    public Boolean delete(@PathVariable Integer id) {
-        ${entity} ${table.entityPath} = new ${entity}();
-        ${table.entityPath}.setId(id);
-        ${table.entityPath}.setUpdateTime(new Date());
-        ${table.entityPath}.setDelFlag(CommonConstant.STATUS_DEL);
-        return ${table.entityPath}Service.updateById(${table.entityPath});
+    @ApiOperation(httpMethod = "DELETE", value = "删除${table.comment}")
+    public Map<String, Object> delete(@PathVariable String id) {
+        try {
+             return  successMap(${table.entityPath}Service.deleteById(id));
+        }catch (BizException e){
+             return failMap(e.getMessage());
+        } catch (Exception e) {
+             logger.error(e.getMessage(), e);
+             return failMap(OperateConstant.OPERATION_FAIL);
+        }
     }
 
     /**
      * 编辑
      * @param  ${table.entityPath}  实体
-     * @return success/false
+     * @return
      */
     @PutMapping
-    public Boolean edit(@RequestBody ${entity} ${table.entityPath}) {
-        ${table.entityPath}.setUpdateTime(new Date());
-        return ${table.entityPath}Service.updateById(${table.entityPath});
+    @ApiOperation(httpMethod = "PUT", value = "编辑${table.comment}")
+    public  Map<String, Object> edit(@RequestBody ${entity} ${table.entityPath}) {
+        try {
+            return  successMap(${table.entityPath}Service.insertOrUpdate(${table.entityPath}));
+        }catch (BizException e){
+            return failMap(e.getMessage());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return failMap(OperateConstant.OPERATION_FAIL);
+        }
     }
 }

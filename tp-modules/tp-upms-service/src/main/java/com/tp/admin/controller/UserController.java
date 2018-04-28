@@ -1,21 +1,22 @@
 package com.tp.admin.controller;
-
-
-import com.tp.admin.service.IUserService;
+import java.util.Map;
+import java.util.Date;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.tp.common.constant.OperateConstant;
+import com.tp.admin.entity.User;
+import com.tp.admin.service.IUserService;
 import com.tp.common.controller.BaseController;
+import org.springframework.web.bind.annotation.RestController;
 import com.tp.common.exception.BizException;
-import io.swagger.annotations.Api;
+import org.springframework.web.bind.annotation.PathVariable;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
+import com.tp.common.page.PageParam;
+import io.swagger.annotations.ApiParam;
 
 /**
  * <p>
@@ -25,18 +26,24 @@ import java.util.Map;
  * @author tp
  * @since 2018-04-28
  */
-@Api(value="/user", tags="测试接口模块")
 @RestController
 @RequestMapping("/user")
-public class UserController extends BaseController{
+public class UserController extends BaseController {
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
-    @Autowired
-    private IUserService userService;
-    @GetMapping(value = "/listUser")
-    @ApiOperation(httpMethod = "GET", value = "用户列表")
-    public Map<String, Object> listUser() {
+
+    @Autowired private IUserService userService;
+
+    /**
+     * 通过ID查询
+     *
+     * @param id ID
+     * @return User
+     */
+    @GetMapping("/{id}")
+    @ApiOperation(httpMethod = "GET", value = "通过ID查询系统用户")
+    public Map<String, Object> get(@PathVariable String id) {
         try {
-            return  successMap(userService.listUsers());
+            return  successMap(userService.selectById(id));
         }catch (BizException e){
             return failMap(e.getMessage());
         } catch (Exception e) {
@@ -45,5 +52,77 @@ public class UserController extends BaseController{
         }
     }
 
-}
 
+    /**
+     * 分页查询信息
+     *
+     * @param params 分页对象
+     * @return 分页对象
+     */
+    @RequestMapping("/page")
+    @ApiOperation(httpMethod = "POST", value = "分页查询系统用户")
+    public Map<String, Object> page(@RequestParam Map<String, Object> params) {
+        try {
+            return  successMap("todo");
+        }catch (BizException e){
+            return failMap(e.getMessage());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return failMap(OperateConstant.QUERY_FAIL);
+        }
+    }
+
+    /**
+     * 添加
+     * @param  user  实体
+     * @return
+     */
+    @PostMapping
+    @ApiOperation(httpMethod = "POST", value = "添加系统用户")
+    public Map<String, Object> add(@RequestBody User user) {
+        try {
+            return  successMap(userService.insert(user));
+        }catch (BizException e){
+            return failMap(e.getMessage());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return failMap(OperateConstant.OPERATION_FAIL);
+        }
+    }
+
+    /**
+     * 删除
+     * @param id ID
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    @ApiOperation(httpMethod = "DELETE", value = "删除系统用户")
+    public Map<String, Object> delete(@PathVariable String id) {
+        try {
+            return  successMap(userService.deleteById(id));
+        }catch (BizException e){
+            return failMap(e.getMessage());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return failMap(OperateConstant.OPERATION_FAIL);
+        }
+    }
+
+    /**
+     * 编辑
+     * @param  user  实体
+     * @return
+     */
+    @PutMapping
+    @ApiOperation(httpMethod = "PUT", value = "编辑系统用户")
+    public  Map<String, Object> edit(@RequestBody User user) {
+        try {
+            return  successMap(userService.insertOrUpdate(user));
+        }catch (BizException e){
+            return failMap(e.getMessage());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return failMap(OperateConstant.OPERATION_FAIL);
+        }
+    }
+}
