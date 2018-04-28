@@ -1,6 +1,5 @@
 package ${package.Controller};
 import java.util.Map;
-import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -15,8 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.tp.common.page.PageParam;
-import io.swagger.annotations.ApiParam;
+import com.tp.common.page.Query;
 
 /**
  * <p>
@@ -52,7 +50,6 @@ public class ${table.controllerName} extends BaseController {
         }
     }
 
-
     /**
     * 分页查询信息
     *
@@ -63,7 +60,8 @@ public class ${table.controllerName} extends BaseController {
     @ApiOperation(httpMethod = "POST", value = "分页查询${table.comment}")
     public Map<String, Object> page(@RequestParam Map<String, Object> params) {
         try {
-             return  successMap("todo");
+            Page<${entity}> page = userService.selectPage(new Query<>(params), new EntityWrapper<>());
+            return successMap(page);
         }catch (BizException e){
             return failMap(e.getMessage());
         } catch (Exception e) {

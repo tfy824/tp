@@ -1,6 +1,5 @@
 package com.tp.admin.controller;
 import java.util.Map;
-import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -15,8 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.tp.common.page.PageParam;
-import io.swagger.annotations.ApiParam;
+import com.tp.common.page.Query;
 
 /**
  * <p>
@@ -63,7 +61,8 @@ public class UserController extends BaseController {
     @ApiOperation(httpMethod = "POST", value = "分页查询系统用户")
     public Map<String, Object> page(@RequestParam Map<String, Object> params) {
         try {
-            return  successMap("todo");
+            Page<User> page = userService.selectPage(new Query<>(params), new EntityWrapper<>());
+            return successMap(page);
         }catch (BizException e){
             return failMap(e.getMessage());
         } catch (Exception e) {
