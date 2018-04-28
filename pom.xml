@@ -32,8 +32,9 @@
         <hutool.version>3.3.2</hutool.version>
         <commons-io.version>2.6</commons-io.version>
         <jasypt.version>1.18</jasypt.version>
-        <mybatis-plus.version>2.1.9</mybatis-plus.version>
-        <mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
+        <mysql-version>5.1.39</mysql-version>
+        <mybatis-plus-boot-starter.version>2.1.9</mybatis-plus-boot-starter.version>
+        <mybatisplus.version>2.1.8</mybatisplus.version>
      <!--   <hibernate-validator.version>5.4.1.Final</hibernate-validator.version>-->
         <hibernate-validator.version>6.0.7.Final</hibernate-validator.version>
         <swagger2.version>2.8.0</swagger2.version>
@@ -43,6 +44,9 @@
         <velocity-engine-core.version>2.0</velocity-engine-core.version>
         <qiniu.version>[7.2.0, 7.2.99]</qiniu.version>
         <kaptcha.version>0.0.9</kaptcha.version>
+        <spring-security-oauth2.version>2.0.14.RELEASE</spring-security-oauth2.version>
+        <HikariCP.version>2.4.13</HikariCP.version>
+        <spring-boot-starter-aop.version>2.0.1.RELEASE</spring-boot-starter-aop.version>
     </properties>
 
     <!--公共依赖-->
@@ -78,6 +82,7 @@
         <module>tp-eureka</module>
         <module>tp-modules</module>
         <module>tp-common</module>
+        <module>tp-auth</module>
     </modules>
 
     <dependencyManagement>
