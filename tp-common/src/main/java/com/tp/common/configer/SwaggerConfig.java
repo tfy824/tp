@@ -30,30 +30,19 @@ public class SwaggerConfig {
 
     @Bean
     public Docket createRestApi() {
-        ParameterBuilder tokenBuilder = new ParameterBuilder();
-        List<Parameter> parameterList = new ArrayList<Parameter>();
-        tokenBuilder.name("Authorization")
-                .defaultValue("去其他请求中获取heard中token参数")
-                .description("令牌")
-                .modelRef(new ModelRef("string"))
-                .parameterType("header")
-                .required(true).build();
-        parameterList.add(tokenBuilder.build());
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+                .apis(RequestHandlerSelectors.basePackage("com.tp.admin.controller"))
                 .paths(PathSelectors.any())
-                .build()
-                .globalOperationParameters(parameterList);
+                .build();
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("TP Swagger API ")
-                .description("")
+                .title("springboot利用swagger构建api文档")
+                .description("swagger2")
                 .termsOfServiceUrl("")
-                .contact(new Contact("tp","","tfy824@qq.com"))
                 .version("1.0")
                 .build();
     }

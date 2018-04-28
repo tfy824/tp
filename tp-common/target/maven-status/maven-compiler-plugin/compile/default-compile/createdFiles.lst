@@ -1,5 +1,8 @@
-com\tp\common\constant\SecurityConstants.class
 com\tp\common\constant\ServiceNameConstant.class
+com\tp\common\constant\OperateConstant.class
+com\tp\common\controller\BaseController.class
+com\tp\common\constant\SecurityConstants.class
+com\tp\common\exception\BizException.class
 com\tp\common\configer\SwaggerConfig.class
 com\tp\common\constant\CommonConstant.class
 com\tp\common\constant\MqQueueConstant.class

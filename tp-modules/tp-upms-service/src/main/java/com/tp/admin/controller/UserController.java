@@ -5,6 +5,7 @@ import com.tp.admin.service.IUserService;
 import com.tp.common.constant.OperateConstant;
 import com.tp.common.controller.BaseController;
 import com.tp.common.exception.BizException;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,7 @@ import java.util.Map;
  * @author tp
  * @since 2018-04-28
  */
+@Api(value="/user", tags="测试接口模块")
 @RestController
 @RequestMapping("/user")
 public class UserController extends BaseController{

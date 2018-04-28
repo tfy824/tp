@@ -1,0 +1,7 @@
+version: '3'
+services:
+  tp-upms-service:
+    build:
+      context: ./
+      dockerfile: Dockerfile-upms
+    restart: always

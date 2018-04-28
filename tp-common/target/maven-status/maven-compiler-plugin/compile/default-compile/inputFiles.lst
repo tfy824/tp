@@ -3,3 +3,6 @@ E:\ms\tp\tp-common\src\main\java\com\tp\common\configer\SwaggerConfig.java
 E:\ms\tp\tp-common\src\main\java\com\tp\common\constant\SecurityConstants.java
 E:\ms\tp\tp-common\src\main\java\com\tp\common\constant\ServiceNameConstant.java
 E:\ms\tp\tp-common\src\main\java\com\tp\common\constant\CommonConstant.java
+E:\ms\tp\tp-common\src\main\java\com\tp\common\exception\BizException.java
+E:\ms\tp\tp-common\src\main\java\com\tp\common\constant\OperateConstant.java
+E:\ms\tp\tp-common\src\main\java\com\tp\common\controller\BaseController.java
