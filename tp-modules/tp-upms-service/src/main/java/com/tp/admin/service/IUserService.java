@@ -14,5 +14,17 @@ import java.util.List;
  * @since 2018-04-28
  */
 public interface IUserService extends IService<User> {
+    /**
+     * listUsers
+     * @return List<User>
+     */
     List<User> listUsers();
+
+    /**
+     * findByNameAndPassword
+     * @param name
+     * @param password
+     * @return User
+     */
+    User findByNameAndPassword(String name,String password);
 }

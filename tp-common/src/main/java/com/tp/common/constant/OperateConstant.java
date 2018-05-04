@@ -34,6 +34,8 @@ public class OperateConstant {
     //token过期
     public static final String TOKEN_EXPIRED_CODE="4004";
 
+    public static final String UNLOGIN_CODE="-1";
+
     /**************************文本内容******************/
     //请求成功
     public static final String SUCCESS_MSG = "请求成功";
@@ -45,16 +47,9 @@ public class OperateConstant {
     public static final String TOKEN_EXCE_MSG = "非法token";
 
     public static final String TOKEN_EXPIRED_MSG = "token过期";
+    public static final String UNLOGIN_MSG = "未登录";
 
-    /***************************token******************************/
-    /**secret**/
-    public static final String JWT_SECRET = "7786df7fc3a34e26a61c034d5ec8245d";
-    /**过期时间**/
-    public static final long EXPIRATION_TIME=0;  //millisecond 0代表没有过期时间
-    /**签发者**/
-    public static final String ISSUER="i2";
 
-    public static final String MD5_PREFIX = "i2";
 
 
 

@@ -56,3 +56,10 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
+
+##jwt配置
+audience:
+  clientId: tp
+  base64Secret: MDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjTY
+  name: tp
+  expiresSecond: 172800
