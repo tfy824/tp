@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,14 +37,18 @@ public class LoginController extends BaseController{
                                      @RequestParam(value = "password") String password) {
         User user = userService.findByNameAndPassword(username, password);
         if(null != user){
+            ArrayList<String> roles  = new ArrayList<>();
+            roles.add("admin");
+            roles.add("editor");
             String jwtToken = JwtHelper.createJWT(user.getLoginName(),
                     user.getIdUser(),
-                    "",
+                    roles,
                     audience.getClientId(),
                     audience.getName(),
                     audience.getExpiresSecond()*1000,
                     audience.getBase64Secret());
             String result_str = JwtHelper.TOKEN_PRE + jwtToken;
+
             return successMap(result_str);
         }else {
             return failMap("用户名密码不正确");

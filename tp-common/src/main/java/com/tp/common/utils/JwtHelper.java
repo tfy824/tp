@@ -8,6 +8,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -37,7 +38,7 @@ public class JwtHelper {
     /**
      * 构建jwt
      */
-    public static String createJWT(String name, String userId, String role,
+    public static String createJWT(String name, String userId, ArrayList<String> roles,
                                    String audience, String issuer, long TTLMillis, String base64Security)
     {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -51,7 +52,7 @@ public class JwtHelper {
 
         //添加构成JWT的参数
         JwtBuilder builder = Jwts.builder().setHeaderParam("typ", "JWT")
-                .claim("role", role)
+                .claim("roles", roles)
                 .claim("unique_name", name)
                 .claim("userid", userId)
                 .setIssuer(issuer)

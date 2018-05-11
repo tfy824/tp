@@ -1,5 +1,7 @@
 package com.tp.admin.controller;
 import java.util.Map;
+
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -15,6 +17,8 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.tp.common.page.Query;
+
+import javax.servlet.ServletRequest;
 
 /**
  * <p>
@@ -117,6 +121,25 @@ public class UserController extends BaseController {
     public  Map<String, Object> edit(@RequestBody User user) {
         try {
             return  successMap(userService.insertOrUpdate(user));
+        }catch (BizException e){
+            return failMap(e.getMessage());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return failMap(OperateConstant.OPERATION_FAIL);
+        }
+    }
+
+    /**
+     *
+     * @param request
+     * @return
+     */
+    @GetMapping("/info")
+    @ApiOperation(httpMethod = "GET", value = "获取登录用户基本信息")
+    public Map<String, Object> info(final ServletRequest  request) {
+        try {
+            Claims claims = (Claims) request.getAttribute("CLAIMS");
+            return  successMap(claims);
         }catch (BizException e){
             return failMap(e.getMessage());
         } catch (Exception e) {
